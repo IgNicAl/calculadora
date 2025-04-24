@@ -1,0 +1,27 @@
+# Dependências
+node_modules/
+package-lock.json
+yarn.lock
+
+# Arquivos de construção
+dist/
+build/
+icons/icon-*.png
+
+# Logs e dados temporários
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
+.cache/
+.vscode/
+.idea/
+
+# Arquivos de ambiente
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local 

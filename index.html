@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Financeira</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Projeção Financeira</h1>
+        
+        <div class="form-container">
+            <div class="form-section">
+                <h2>Valores Iniciais</h2>
+                
+                <!-- Taxas de câmbio -->
+                <div class="taxas-container">
+                    <div class="input-group">
+                        <label for="taxaCambio">Valor do Dólar (R$):</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="taxaCambio" value="5,00" class="input-number">
+                            <div class="valor-extenso" id="taxaCambioExtenso">Cinco reais</div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="taxaCambioEuro">Valor do Euro (R$):</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="taxaCambioEuro" value="5,50" class="input-number">
+                            <div class="valor-extenso" id="taxaCambioEuroExtenso">Cinco reais e cinquenta centavos</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Valor inicial com seletor de moeda -->
+                <div class="input-group">
+                    <label for="valorInicial">Valor Inicial:</label>
+                    <div class="input-flex-wrapper">
+                        <select id="moedaValorInicial" class="moeda-select">
+                            <option value="BRL">R$</option>
+                            <option value="USD">US$</option>
+                            <option value="EUR">€</option>
+                        </select>
+                        <div class="input-wrapper flex-grow">
+                            <input type="text" id="valorInicial" value="100.000,00" class="input-number">
+                            <div class="valor-extenso" id="valorInicialExtenso">Cem mil reais</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Aporte mensal com seletor de moeda -->
+                <div class="input-group">
+                    <label for="aporteMensal">Aporte Mensal:</label>
+                    <div class="input-flex-wrapper">
+                        <select id="moedaAporteMensal" class="moeda-select">
+                            <option value="BRL">R$</option>
+                            <option value="USD">US$</option>
+                            <option value="EUR">€</option>
+                        </select>
+                        <div class="input-wrapper flex-grow">
+                            <input type="text" id="aporteMensal" value="1.000,00" class="input-number">
+                            <div class="valor-extenso" id="aporteMensalExtenso">Mil reais</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tipo de Retirada -->
+                <div class="input-group">
+                    <label for="tipoRetirada">Tipo de Retirada:</label>
+                    <select id="tipoRetirada">
+                        <option value="fixo">Valor Fixo</option>
+                        <option value="percentual">Percentual dos Lucros</option>
+                    </select>
+                </div>
+                
+                <!-- Distribuição de Retiradas para Múltiplas Moedas -->
+                <div class="input-group">
+                    <label>Distribuição de Retiradas:</label>
+                    <div class="retiradas-container">
+                        <!-- Retirada em Reais -->
+                        <div class="retirada-moeda-group">
+                            <div class="retirada-header">
+                                <label>
+                                    <input type="checkbox" class="habilitar-retirada" id="habilitarRetiradaBRL" checked> 
+                                    Retirada em Reais (R$)
+                                </label>
+                            </div>
+                            <div class="retirada-body" id="retiradaBRLGroup">
+                                <div class="input-group" id="retiradaFixaGroupBRL">
+                                    <label for="retiradaMensalBRL">Valor Mensal (R$):</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="retiradaMensalBRL" value="500,00" class="input-number">
+                                        <div class="valor-extenso" id="retiradaMensalBRLExtenso">Quinhentos reais</div>
+                                    </div>
+                                </div>
+                                <div class="input-group" id="retiradaPercentualGroupBRL" style="display: none;">
+                                    <label for="percentualLucroBRL">Percentual dos Lucros:</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="percentualLucroBRL" value="25,00" class="input-number">
+                                        <div class="valor-extenso" id="percentualLucroBRLExtenso">Vinte e cinco por cento</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Retirada em Dólares -->
+                        <div class="retirada-moeda-group">
+                            <div class="retirada-header">
+                                <label>
+                                    <input type="checkbox" class="habilitar-retirada" id="habilitarRetiradaUSD"> 
+                                    Retirada em Dólares (US$)
+                                </label>
+                            </div>
+                            <div class="retirada-body" id="retiradaUSDGroup" style="display: none;">
+                                <div class="input-group" id="retiradaFixaGroupUSD">
+                                    <label for="retiradaMensalUSD">Valor Mensal (US$):</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="retiradaMensalUSD" value="100,00" class="input-number">
+                                        <div class="valor-extenso" id="retiradaMensalUSDExtenso">Cem dólares</div>
+                                    </div>
+                                </div>
+                                <div class="input-group" id="retiradaPercentualGroupUSD" style="display: none;">
+                                    <label for="percentualLucroUSD">Percentual dos Lucros:</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="percentualLucroUSD" value="25,00" class="input-number">
+                                        <div class="valor-extenso" id="percentualLucroUSDExtenso">Vinte e cinco por cento</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Retirada em Euros -->
+                        <div class="retirada-moeda-group">
+                            <div class="retirada-header">
+                                <label>
+                                    <input type="checkbox" class="habilitar-retirada" id="habilitarRetiradaEUR"> 
+                                    Retirada em Euros (€)
+                                </label>
+                            </div>
+                            <div class="retirada-body" id="retiradaEURGroup" style="display: none;">
+                                <div class="input-group" id="retiradaFixaGroupEUR">
+                                    <label for="retiradaMensalEUR">Valor Mensal (€):</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="retiradaMensalEUR" value="100,00" class="input-number">
+                                        <div class="valor-extenso" id="retiradaMensalEURExtenso">Cem euros</div>
+                                    </div>
+                                </div>
+                                <div class="input-group" id="retiradaPercentualGroupEUR" style="display: none;">
+                                    <label for="percentualLucroEUR">Percentual dos Lucros:</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="percentualLucroEUR" value="25,00" class="input-number">
+                                        <div class="valor-extenso" id="percentualLucroEURExtenso">Vinte e cinco por cento</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Parâmetros</h2>
+                <div class="input-group">
+                    <label for="juros">Taxa de Juros:</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="juros" value="12,00" class="input-number">
+                        <div class="valor-extenso" id="jurosExtenso">Doze por cento</div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="periodoJuros">Período dos Juros:</label>
+                    <select id="periodoJuros">
+                        <option value="mensal">Mensal</option>
+                        <option value="anual" selected>Anual</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="inicioRetirada">Início das Retiradas (mês):</label>
+                    <input type="number" id="inicioRetirada" value="1" min="1">
+                </div>
+                
+                <div class="input-group">
+                    <label for="tempoAumento">Tempo para Aumento:</label>
+                    <input type="number" id="tempoAumento" value="12" min="1">
+                </div>
+                
+                <div class="input-group">
+                    <label for="periodoAumento">Período do Aumento:</label>
+                    <select id="periodoAumento">
+                        <option value="meses">Meses</option>
+                        <option value="anos" selected>Anos</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="valorAumento">Percentual de Aumento:</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="valorAumento" value="10,00" class="input-number">
+                        <div class="valor-extenso" id="valorAumentoExtenso">Dez por cento</div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="periodoProjecao">Período de Projeção (anos):</label>
+                    <input type="number" id="periodoProjecao" value="30" min="1">
+                </div>
+                
+                <button id="calcular">Calcular Projeção</button>
+            </div>
+        </div>
+        
+        <div class="results-container">
+            <h2 id="resultados" style="display: none;">Resultados da Projeção</h2>
+            
+            <div class="resultado-grid">
+                <div id="resultadoPatrimonio" class="resultado-box"></div>
+                <div id="resultadoInformacoes" class="resultado-box"></div>
+            </div>
+            
+            <div id="retiradaMensalAtual" class="retirada-atual-box">
+                <h3>Retirada Mensal Atual</h3>
+                <div class="retiradas-atuais-grid"></div>
+            </div>
+            
+            <div class="grafico-container">
+                <h3>Evolução do Patrimônio e Retiradas</h3>
+                <canvas id="graficoLucro"></canvas>
+            </div>
+            
+            <div class="tabela-container">
+                <h3>Tabela de Resultados</h3>
+                <div class="tabela-wrapper">
+                    <table id="tabelaResultados" class="tabela-resultados">
+                        <thead>
+                            <!-- Será preenchido via JavaScript -->
+                        </thead>
+                        <tbody>
+                            <!-- Será preenchido via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Modal para detalhes do período -->
+            <div id="detalhesModal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="modalTitulo">Detalhes do Período</h3>
+                        <span class="fechar-modal">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="detalhes-periodo-tabs">
+                            <button class="tab-btn active" data-tab="patrimonio">Patrimônio</button>
+                            <button class="tab-btn" data-tab="juros">Juros</button>
+                            <button class="tab-btn" data-tab="retiradas">Retiradas</button>
+                        </div>
+                        <div id="detalhesTabela"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html> 

@@ -1,0 +1,61 @@
+{
+  "name": "calculadora-financeira",
+  "productName": "Calculadora Financeira",
+  "version": "1.0.0",
+  "description": "Calculadora financeira para projeções de patrimônio e retiradas em múltiplas moedas",
+  "homepage": "https://github.com/seu-usuario/calculadora-financeira",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "dist:all": "electron-builder -mwl",
+    "dist:mac": "electron-builder --mac",
+    "dist:win": "electron-builder --win",
+    "dist:linux": "electron-builder --linux"
+  },
+  "keywords": [
+    "calculadora",
+    "financeira",
+    "investimentos",
+    "projeções"
+  ],
+  "author": {
+    "name": "Seu Nome",
+    "email": "seu.email@exemplo.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^25.3.0",
+    "electron-builder": "^24.4.0"
+  },
+  "dependencies": {
+    "chart.js": "^3.9.1"
+  },
+  "build": {
+    "appId": "com.calculadorafinanceira.app",
+    "mac": {
+      "category": "public.app-category.finance",
+      "icon": "icons/icon.icns"
+    },
+    "win": {
+      "icon": "icons/icon.ico"
+    },
+    "linux": {
+      "icon": "icons/icon.png",
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm"
+      ],
+      "category": "Finance",
+      "maintainer": "Seu Nome <seu.email@exemplo.com>"
+    },
+    "files": [
+      "**/*",
+      "!dist/**/*",
+      "!build/**/*",
+      "!node_modules/**/*"
+    ]
+  }
+}
